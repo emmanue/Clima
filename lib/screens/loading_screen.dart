@@ -8,9 +8,9 @@ class LoadingScreen extends StatefulWidget {
 }
 
 class _LoadingScreenState extends State<LoadingScreen> {
-
-  void getLocation() async {
-    Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.low);
+  // solved an issue with the static call on a field
+  void getLocation(Geolocator geolocator) async {
+    Position position = await geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.low);
     print(position);
   }
 
