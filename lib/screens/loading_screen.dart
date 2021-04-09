@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import '../services/location.dart';
 
 
 class LoadingScreen extends StatefulWidget {
@@ -8,10 +9,13 @@ class LoadingScreen extends StatefulWidget {
 }
 
 class _LoadingScreenState extends State<LoadingScreen> {
+
   // solved an issue with the static call on a field
-  void getLocation(Geolocator geolocator) async {
-    Position position = await geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.low);
-    print(position);
+  void getLocation() async {
+    Location location = Location();
+    await location.getCurrentLocation();
+    print(location.latitude);
+    print(location.longitude);
   }
 
   @override
