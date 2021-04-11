@@ -24,7 +24,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
     print(location.latitude);
     print(location.longitude);
   }
-
+  // asynchronous programming
   void getData() async {
     http.Response response = await http.get("api.openweathermap.org/data/2.5/weather?lat=35&lon=139&appid");
     if (response.statusCode == 200){
@@ -37,11 +37,11 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
       var decodedData = jsonDecode(data);
 
-      var tempMain = decodedData['main']['temp'];
+      double tempMain = decodedData['main']['temp'];
 
-      var weatherId = decodedData['weather'][0]['id'];
+      int weatherId = decodedData['weather'][0]['id'];
 
-      var nameOfCity = decodedData['name'];
+      String nameOfCity = decodedData['name'];
       
     } else {
       print(response.statusCode);
