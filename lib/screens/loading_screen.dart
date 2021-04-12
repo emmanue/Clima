@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import '../services/location.dart';
 import '../services/networking.dart';
+import 'location_screen.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+
 
 
 const apiKey = "214b3a7bd758e35441bc3427e4b1a071";
@@ -31,6 +34,10 @@ class _LoadingScreenState extends State<LoadingScreen> {
     NetworkHelper networkHelper = NetworkHelper("api.openweathermap.org/data/2.5/weather?lat=$latitude&lon=$longitude&appid=$apiKey");
 
     var weatherData = await networkHelper.getData();
+    
+    Navigator.push(context, MaterialPageRoute(builder: (context){
+      return LocationScreen();
+    }));
 
 
   }
@@ -42,13 +49,12 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
     return Scaffold(
       body: Center(
-        child: RaisedButton(
-          onPressed: () {
-            getLocation();
-          },
-          child: Text('Get Location'),
+        child: SpinKitDoubleBounce(
+          color: Colors.white,
+          size: 100.0,
         ),
       ),
     );
   }
 }
+
