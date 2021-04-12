@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import '../services/location.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
+import '../services/networking.dart';
 
+
+const apiKey = "214b3a7bd758e35441bc3427e4b1a071";
 
 class LoadingScreen extends StatefulWidget {
   @override
@@ -11,46 +12,34 @@ class LoadingScreen extends StatefulWidget {
 
 class _LoadingScreenState extends State<LoadingScreen> {
 
+  double latitude;
+  double longitude;
+
   @override
   void initState() {
     super.initState();
-    getLocation();
+    getLocationData();
   }
 
   // solved an issue with the static call on a field
-  void getLocation() async {
+  void getLocationData() async {
     Location location = Location();
     await location.getCurrentLocation();
-    print(location.latitude);
-    print(location.longitude);
+    latitude = (location.latitude);
+    longitude = (location.longitude);
+
+    NetworkHelper networkHelper = NetworkHelper("api.openweathermap.org/data/2.5/weather?lat=$latitude&lon=$longitude&appid=$apiKey");
+
+    var weatherData = await networkHelper.getData();
+
+
   }
   // asynchronous programming
-  void getData() async {
-    http.Response response = await http.get("api.openweathermap.org/data/2.5/weather?lat=35&lon=139&appid");
-    if (response.statusCode == 200){
-      String data = response.body;
-      
-      // var longitude = jsonDecode(data)['coord']['lon'];
-      // print(longitude);
-      //
-      // var weatherDescription = jsonDecode(data)['weather'][0]['description']
 
-      var decodedData = jsonDecode(data);
-
-      double tempMain = decodedData['main']['temp'];
-
-      int weatherId = decodedData['weather'][0]['id'];
-
-      String nameOfCity = decodedData['name'];
-      
-    } else {
-      print(response.statusCode);
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
-    getData();
+
     return Scaffold(
       body: Center(
         child: RaisedButton(
