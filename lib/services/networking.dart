@@ -2,7 +2,8 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class NetworkHelper {
-
+  
+  // Separation of concerns to respect the single responsibility principle
   NetworkHelper(this.url);
 
   final String url;
