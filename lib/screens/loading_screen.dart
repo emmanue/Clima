@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'location_screen.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import '../services/weather.dart';
 
 
 
@@ -22,6 +23,8 @@ class _LoadingScreenState extends State<LoadingScreen> {
   // solved an issue with the static call on a field
   void getLocationData() async {
 
+    WeatherModel weatherModel = WeatherModel();
+    var weatherData = await weatherModel.getLocationWeather();
     
     Navigator.push(context, MaterialPageRoute(builder: (context){
       return LocationScreen(locationWeather: weatherData,);
