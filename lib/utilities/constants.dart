@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+
+// Well designed architecture following best practices
 //separation of concerns to add readability to the code base
 const kTempTextStyle = TextStyle(
   fontFamily: 'Spartan MB',
